@@ -21,7 +21,7 @@ def __main__():
         config.sites[channel.site].parse(channel, data)
         time.sleep(config.sites[channel.site].channeldelay)
 
-    etree.dump(data)
+    data.write(config.filename, pretty_print=True)
 
 if __name__ == "__main__":
     __main__()
