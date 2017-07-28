@@ -1,5 +1,7 @@
 import time
 
+import datetime
+
 import configuration
 from lxml import etree
 
@@ -15,7 +17,7 @@ def __main__():
     data.attrib['generator-info-name'] = "PyGrab v"+__version__
 
     for channel in config.channels:
-        print("\n{0}".format(channel.name))
+        print("\n{0} - {1}".format(datetime.datetime.now(), channel.name))
         config.sites[channel.site].parse(channel, data)
         time.sleep(config.sites[channel.site].channeldelay)
 
