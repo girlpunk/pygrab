@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<site>
+    <history>
+        <MinSWVersion>0.0.1</MinSWVersion>
+        <Revision number="19" release="27/07/2017" author="CyberJacob">Stuff</Revision>
+        <Remarks>None</Remarks>
+    </history>
+    <site>
+        <url>tvguide.co.uk</url>
+        <timezone>Europe/London</timezone>
+        <maxdays>7</maxdays>
+        <cultureinfo>en-US</cultureinfo>
+        <charset>UTF-8</charset>
+        <titlematchfactor>90</titlematchfactor>
+        <allowlastpageoverflow />
+        <ratingsystem>GB</ratingsystem>
+        <episodesystem><onscreen /></episodesystem>
+        <htmlparse />
+        <retry channel-delay="5" index-delay="0" show-delay="1" time-out="20">4</retry>
+        <xpath />
+    </site>
+    <url>
+        <string order="1">http://my.tvguide.co.uk/channellisting.asp?ch=</string>
+        <siteid order="2" />
+        <string order="3">&amp;cTime=</string>
+        <date order="4">%m/%d/%Y</date>
+        <string order="5">%206:00:00%20AM</string>
+    </url>
+    <headers>
+        <Accept-Encoding>gzip,deflate</Accept-Encoding>
+    </headers>
+    <showsplit xpath=".//table[@width='677']">
+        <container xpath="//table[@bgcolor='black']" />
+    </showsplit>
+    <xmltv>
+        <icon>
+            <string order="1">http://my.tvguide.co.uk/channel_logos/</string>
+            <siteid order="2" />
+            <string order="3">.png</string>
+        </icon>
+        <displayname xpath="(//table[@cellpadding='0']/tr/td/table/tr/td/span[@class='programmeheading'])[1]/text()" />
+    </xmltv>
+    <program>
+        <detailurl xpath=".//a[@title='Click to rate and review']/@href" />
+        <start xpath="tr/td/span[@class='season']/text()" format="%I:%M%p " />
+        <star-rating xpath="tr/td/table/tr/td/span[@class='programmeheading']/text()" max="10">
+            <unrated xpath="tr/td/table/tr/td/span[@class='programmetext']/text()" match="Not Yet Rated" />
+        </star-rating>
+        <category xpath="tr/td/span[@class='programmetext']/text()"/>
+        <episode-num xpath="concat((tr/td/a/b/span[@class='season'])[1], (tr/td/a/b/span[@class='season'])[2])">
+            <system><string order="1">onscreen</string></system>
+        </episode-num>
+        <subtitles xpath="tr/td/span[@class='tvchannel']/text()" match="(Subtitles)">
+                <type><string order="1">teletext</string></type>
+            </subtitles>
+        <xmltv>
+            <title xpath="tr/td/a/span/text()" />
+            <sub-title xpath="tr/td/a/span[@class='tvchannel']/text()"/>
+            <desc xpath="tr/td/a/span[@class='programmetext']/text()"/>
+            <url xpath="tr/td/a/@href"/>
+        </xmltv>
+        <detail>
+            <icon xpath="//body/div[@id='site-container']/div/div[@id='divCentre']/div[2]/div[@id='headerImage']/@style" regex="(?&lt;=background-image:url\()https?:\/\/.*(?=\);)" />
+            <stop xpath="(//body/div[@id='site-container']/div/div[@id='divLHS']/div)[2]/div/text()[3]" regex="(?&lt;=-)\d*:\d*\wm" format="%I:%M%p"/>
+            <category xpath="(//body/div[@id='site-container']/div/div[@id='divLHS']/div)[1]/text()[2]" regex="(?&lt;=Category: ).*"/>
+            <xmltv>
+                <rating xpath="(//body/div[@id='site-container']/div/div[@id='divLHS']/div)[2]/span[1]/text()" regex="(?&lt;=Certificate : ).*"/>
+            </xmltv>
+        </detail>
+    </program>
+</site>
