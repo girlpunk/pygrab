@@ -23,10 +23,10 @@ class Attribute(object):
         :type element: lxml.etree.Element
         """
         if len(value) > 0:
-            if type(value) != list:
-                self.val = [value]
-            else:
+            if isinstance(value, list):
                 self.val = value
+            else:
+                self.val = [value]
         else:
             self.val = []
         self.element = element
@@ -39,7 +39,7 @@ class Attribute(object):
         :type value: Union[str, unicode, list]
         :rtype: Attribute
         """
-        if type(value) != list:
+        if not isinstance(value, list):
             self.val = [value]
         else:
             self.val = value
@@ -53,7 +53,7 @@ class Attribute(object):
         :type value: Union[str, unicode, list]
         :rtype: Attribute
         """
-        if type(value) != list:
+        if not isinstance(value, list):
             self.val.append(value)
         else:
             self.val += value
@@ -222,7 +222,7 @@ class Site(object):
         :rtype: Attribute
         """
         output = page.xpath(element.attrib['xpath'])
-        if type(output) is not list:
+        if not isinstance(output, list):
             output = [output]
         if "regex" in Site._get_child_tags(element):
             output = Site._regex_string(output, element)
@@ -255,7 +255,7 @@ class Site(object):
             page = Site._extract_element(element.find("container"), page)
         # find item
         output = page.xpath(element.attrib['xpath'])
-        if single and type(output) == list:
+        if single and isinstance(output, list):
             output = output[0]
         return output
 
