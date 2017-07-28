@@ -1,5 +1,6 @@
 from __future__ import print_function
 
+import copy
 import datetime
 import logging
 import os.path
@@ -163,6 +164,10 @@ class Site(object):
 
     @staticmethod
     def _get_child_tags(element):
+        """
+
+        :rtype: List[Union[str, unicode]]
+        """
         tags = list(element.attrib)
         for child in element.getchildren():
             tags.append(child.tag)
@@ -170,6 +175,14 @@ class Site(object):
 
     @staticmethod
     def _static_string(element, channel, date):
+        """
+
+        :param element:
+        :param channel:
+        :param date:
+        :return:
+        :rtype: Attribute
+        """
         items = sorted(element.getchildren(), key=lambda x: x.attrib['order'])
         output = Attribute("", element)
         for item in items:
@@ -201,7 +214,13 @@ class Site(object):
 
     @staticmethod
     def _xpath_string(page, element):
+        """ Extract a string for a page using xpath
 
+        :param page: Page to extract from
+        :param element: Config element containing xpath details
+        :return: extracted attribute
+        :rtype: Attribute
+        """
         output = page.xpath(element.attrib['xpath'])
         if type(output) is not list:
             output = [output]
@@ -213,6 +232,17 @@ class Site(object):
 
     @staticmethod
     def _extract_string(element, channel=None, date=datetime.datetime.now(), page=None):
+        """ Extract a string for a page
+
+        :param element: Config element containing details
+        :param channel:
+        :type channel: channel.Channel
+        :param date:
+        :type date: datetime.datetime
+        :param page:
+        :return: Extracted attribute
+        :rtype: Attribute
+        """
         if any(x in Site._get_child_tags(element) for x in ["siteid", "string", "date"]):
             return Site._static_string(element, channel, date)
         elif "xpath" in Site._get_child_tags(element):
