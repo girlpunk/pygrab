@@ -14,6 +14,107 @@ MODE_PYGRAB = "pygrab"
 MODE_WEBGRAB = "webgrab"
 
 
+class Attribute(object):
+    def __init__(self, value, element=None):
+        """
+
+        :type value: Union[str, unicode, list]
+        :type element: lxml.etree.Element
+        """
+        if len(value) > 0:
+            if type(value) != list:
+                self.val = [value]
+            else:
+                self.val = value
+        else:
+            self.val = []
+        self.element = element
+        self.is_match = False
+    
+    def update(self, value, element=None):
+        """
+
+        :param element:
+        :type value: Union[str, unicode, list]
+        :rtype: Attribute
+        """
+        if type(value) != list:
+            self.val = [value]
+        else:
+            self.val = value
+        if self.element is not None:
+            self.element = element
+        return self
+    
+    def append(self, value):
+        """
+
+        :type value: Union[str, unicode, list]
+        :rtype: Attribute
+        """
+        if type(value) != list:
+            self.val.append(value)
+        else:
+            self.val += value
+        return self
+    
+    def datetime(self, element=None):
+        """
+
+        :rtype: Attribute
+        """
+        if not element:
+            element = self.element
+            
+        temp = []
+        for x in self.val:
+            temp.append(datetime.datetime.strptime(x, element.attrib['format']))
+        self.val = copy.copy(temp)
+        
+        return self
+    
+    def match(self, element=None):
+        """
+
+        :rtype: Attribute
+        """
+        if not element:
+            element = self.element
+        self.is_match = True
+            
+        temp = []
+        for x in self.val:
+            if x == element.attrib['match']:
+                temp.append(True)
+            else:
+                temp.append(False)
+        self.val = copy.copy(temp)
+        
+        return self
+    
+    def single(self, blank=False):
+        """
+
+        :rtype: Union[str, unicode, bool]
+        """
+        if self.is_match:
+            return any(self.val)
+        elif len(self.val) >= 1:
+            return self.val[0]
+        elif blank:
+            return ""
+        else:
+            return None
+
+    def multiple(self):
+        """
+
+        :return: List of values
+        :rtype: list
+        """
+        return self.val
+
+
 class Site(object):
     def __init__(self, name, config):
         self.name = name
@@ -70,14 +171,14 @@ class Site(object):
     @staticmethod
     def _static_string(element, channel, date):
         items = sorted(element.getchildren(), key=lambda x: x.attrib['order'])
-        output = ""
+        output = Attribute("", element)
         for item in items:
             if item.tag == "string":
-                output += item.text.strip()
+                output.update(output.single(blank=True)+item.text.strip())
             elif item.tag == "siteid":
-                output += channel.site_id
+                output.update(output.single(blank=True)+channel.site_id)
             elif item.tag == "date":
-                output += datetime.datetime.strftime(date, item.text.strip())
+                output.update(output.single(blank=True)+datetime.datetime.strftime(date, item.text.strip()))
         return output
 
     @staticmethod
@@ -99,24 +200,8 @@ class Site(object):
         return temp
 
     @staticmethod
-    def _datetime_string(output, element):
-        temp = []
-        for x in output:
-            temp.append(datetime.datetime.strptime(x, element.attrib['format']))
-        return temp
+    def _xpath_string(page, element):
 
-    @staticmethod
-    def _match_string(output, element):
-        temp = []
-        for x in output:
-            if x == element.attrib['match']:
-                temp.append(True)
-            else:
-                temp.append(False)
-        return temp
-
-    @staticmethod
-    def _xpath_string(page, element, is_datetime, is_match, single):
         output = page.xpath(element.attrib['xpath'])
         if type(output) is not list:
             output = [output]
@@ -124,25 +209,14 @@ class Site(object):
             output = Site._regex_string(output, element)
         if "ignore" in Site._get_child_tags(element):
             output = Site._ignore_string(output, element)
-        if is_datetime:
-            output = Site._datetime_string(output, element)
-        if is_match:
-            output = Site._match_string(output, element)
-        if single:
-            if is_match:
-                output = any(output)
-            elif len(output) >= 1:
-                output = output[0]
-            else:
-                output = None
-        return output
+        return Attribute(output, element)
 
     @staticmethod
-    def _extract_string(element, channel=None, date=datetime.datetime.now(), page=None, is_datetime=False, is_match=False, single=True):
+    def _extract_string(element, channel=None, date=datetime.datetime.now(), page=None):
         if any(x in Site._get_child_tags(element) for x in ["siteid", "string", "date"]):
             return Site._static_string(element, channel, date)
         elif "xpath" in Site._get_child_tags(element):
-            return Site._xpath_string(page, element, is_datetime, is_match, single)
+            return Site._xpath_string(page, element)
 
     @staticmethod
     def _extract_element(element, page, single=True):
@@ -158,18 +232,18 @@ class Site(object):
     @staticmethod
     def _extract_star_rating(program_definition, channel, show, show_xml):
         raw_rating = Site._extract_string(program_definition.find("star-rating"), channel=channel, page=show)
-        if raw_rating and not Site._extract_string(program_definition.find("star-rating").find("unrated"), is_match=True, channel=channel, page=show):
-            etree.SubElement(show_xml, "star-rating").text = raw_rating + "/" + program_definition.find("star-rating").attrib["max"]
+        if raw_rating and not Site._extract_string(program_definition.find("star-rating").find("unrated"), channel=channel, page=show).match().single():
+            etree.SubElement(show_xml, "star-rating").text = raw_rating.single() + "/" + program_definition.find("star-rating").attrib["max"]
 
     @staticmethod
     def _extract_icon(program_definition, channel, show, show_xml):
-        icon_url = Site._extract_string(program_definition.find("icon"), channel=channel, page=show)
+        icon_url = Site._extract_string(program_definition.find("icon"), channel=channel, page=show).single()
         if icon_url:
             etree.SubElement(etree.SubElement(show_xml, "icon"), "url").text = icon_url
 
     @staticmethod
     def _extract_category(program_definition, channel, show, show_xml):
-        categories = Site._extract_string(program_definition.find("category"), channel=channel, page=show, single=False)
+        categories = Site._extract_string(program_definition.find("category"), channel=channel, page=show).multiple()
         for category in categories:
             etree.SubElement(show_xml, "category").text = category
 
@@ -178,34 +252,34 @@ class Site(object):
         episode_number = Site._extract_string(program_definition.find("episode-num"), channel=channel, page=show)
         if episode_number:
             episode_tag = etree.SubElement(show_xml, "episode-num")
-            episode_tag.text = episode_number
+            episode_tag.text = episode_number.single()
             number_system = Site._extract_string(program_definition.find("episode-num").find("system"), channel=channel, page=show)
             if number_system:
-                episode_tag.attrib['system'] = number_system
+                episode_tag.attrib['system'] = number_system.single()
 
     @staticmethod
     def _extract_subtitles(program_definition, channel, show, show_xml):
-        enabled = Site._extract_string(program_definition.find("subtitles"), channel=channel, page=show, is_match=True)
+        enabled = Site._extract_string(program_definition.find("subtitles"), channel=channel, page=show).match().single()
         if enabled:
             subtitle_type = Site._extract_string(program_definition.find("subtitles").find("type"), channel=channel, page=show)
             if subtitle_type:
-                etree.SubElement(show_xml, "subtitles").attrib['type'] = subtitle_type
+                etree.SubElement(show_xml, "subtitles").attrib['type'] = subtitle_type.single()
 
     @staticmethod
     def _extract_xmltv(program_definition, channel, show, show_xml):
         for tag in program_definition.find("xmltv").getchildren():
             val = Site._extract_string(tag, channel, page=show)
             if val:
-                etree.SubElement(show_xml, tag.tag).text = val
+                etree.SubElement(show_xml, tag.tag).text = val.single()
 
     def _extract_details(self, show, show_xml, channel, program_definition):
         program_tags = Site._get_child_tags(program_definition)
         if "start" in program_tags:
             # start time is in overview page
-            self.start = Site._extract_string(program_definition.find("start"), channel=channel, page=show, is_datetime=True)
+            self.start = Site._extract_string(program_definition.find("start"), channel=channel, page=show).datetime().single()
 
         if "stop" in program_tags:
-            self.stop = Site._extract_string(program_definition.find("stop"), channel, page=show, is_datetime=True)
+            self.stop = Site._extract_string(program_definition.find("stop"), channel, page=show).datetime().single()
 
         if "star-rating" in program_tags:
             self._extract_star_rating(program_definition, channel, show, show_xml)
@@ -237,7 +311,7 @@ class Site(object):
 
         day = datetime.datetime.today()
 
-        base_url = self._extract_string(self.site_file.find("url"), channel=channel, date=day)
+        base_url = self._extract_string(self.site_file.find("url"), channel=channel, date=day).single()
         retry_limit = int(self.retry)
         while retry_limit > 0:
             try:
@@ -256,7 +330,7 @@ class Site(object):
 
         for item in self.site_file.find("xmltv").getchildren():
             channel_item = etree.SubElement(channel_xml, item.tag)
-            channel_item.text = self._extract_string(item, channel, page=page)
+            channel_item.text = self._extract_string(item, channel, page=page).single()
 
         shows = self._extract_element(self.site_file.find("showsplit"), page, single=False)
         for show in shows:
@@ -267,7 +341,7 @@ class Site(object):
             show_xml.attrib["channel"] = channel.xmltvid
 
             self._extract_details(show, show_xml, channel, self.site_file.find("program"))
-            detail_page_url = self._extract_string(self.site_file.find("program").find("detailurl"), channel, page=show)
+            detail_page_url = self._extract_string(self.site_file.find("program").find("detailurl"), channel, page=show).single()
             if detail_page_url:
                 retry_limit = int(self.retry)
                 while retry_limit > 0:
