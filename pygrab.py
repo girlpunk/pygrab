@@ -19,7 +19,7 @@ def __main__():
     for channel in config.channels:
         print("\n{0} - {1}".format(datetime.datetime.now(), channel.name))
         config.sites[channel.site].parse(channel, data)
-        time.sleep(config.sites[channel.site].channeldelay)
+        time.sleep(config.sites[channel.site].channel_delay)
 
     data.write(config.filename, pretty_print=True)
 
