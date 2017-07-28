@@ -301,7 +301,7 @@ class Site(object):
 
     def parse(self, channel, data):
         if self.mode == MODE_PYGRAB:
-            self.parse(channel, data)
+            self.parse_pygrab(channel, data)
         else:
             logging.warning("WebGrab site files not currently supported")
 
