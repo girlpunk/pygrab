@@ -31,7 +31,7 @@ class Attribute(object):
             self.val = []
         self.element = element
         self.is_match = False
-    
+
     def update(self, value, element=None):
         """
 
