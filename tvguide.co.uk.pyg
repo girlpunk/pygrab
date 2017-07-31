@@ -16,7 +16,7 @@
         <ratingsystem>GB</ratingsystem>
         <episodesystem><onscreen /></episodesystem>
         <htmlparse />
-        <retry channel-delay="5" index-delay="0" show-delay="1" time-out="20">4</retry>
+        <retry channel-delay="5" index-delay="0" show-delay="1" time-out="20">10</retry>
         <xpath />
     </site>
     <url>
