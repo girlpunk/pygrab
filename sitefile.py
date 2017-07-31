@@ -369,7 +369,7 @@ class Site(object):
             self._parse_show(data, channel, show, day)
 
     def _parse_show(self, data, channel, show, day):
-            show_xml = etree.SubElement(data, 'program')
+            show_xml = etree.SubElement(data, 'programme')
             show_xml.attrib["channel"] = channel.xmltvid
 
             self._extract_details(show, show_xml, channel, self.site_file.find("program"))
