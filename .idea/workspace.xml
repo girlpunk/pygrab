@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e4ff65c8-b654-417d-a312-e8b10c525d95" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pygrab.py" afterPath="$PROJECT_DIR$/pygrab.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sitefile.py" afterPath="$PROJECT_DIR$/sitefile.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tvguide.co.uk.pyg" afterPath="$PROJECT_DIR$/tvguide.co.uk.pyg" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -15,35 +17,13 @@
     <SUITE FILE_PATH="coverage/PyGrab$PyGrab.coverage" NAME="PyGrab Coverage Results" MODIFIED="1501259073139" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/PyGrab$Unnamed.coverage" NAME="PyGrab Coverage Results" MODIFIED="1501230728661" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
-  <component name="DockManager">
-    <window id="1">
-      <content type="file-editors">
-        <state>
-          <leaf>
-            <file leaf-file-name="tvguide.co.uk.pyg" pinned="false" current-in-tab="true">
-              <entry file="file://$PROJECT_DIR$/tvguide.co.uk.pyg">
-                <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="306">
-                    <caret line="18" column="32" lean-forward="true" selection-start-line="18" selection-start-column="32" selection-end-line="18" selection-end-column="32" />
-                    <folding>
-                      <element signature="e#873#878#0" expanded="true" />
-                    </folding>
-                  </state>
-                </provider>
-              </entry>
-            </file>
-          </leaf>
-        </state>
-      </content>
-    </window>
-  </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="pygrab.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="pygrab.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/pygrab.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="493">
-              <caret line="29" column="0" lean-forward="true" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
+            <state relative-caret-position="559">
+              <caret line="65" column="0" lean-forward="true" selection-start-line="65" selection-start-column="0" selection-end-line="65" selection-end-column="0" />
               <folding>
                 <element signature="e#23#34#0" expanded="true" />
               </folding>
@@ -66,8 +46,8 @@
       <file leaf-file-name="tvguide.co.uk.pyg" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tvguide.co.uk.pyg">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="18" column="80" lean-forward="false" selection-start-line="18" selection-start-column="80" selection-end-line="18" selection-end-column="80" />
+            <state relative-caret-position="414">
+              <caret line="66" column="23" lean-forward="false" selection-start-line="66" selection-start-column="17" selection-end-line="66" selection-end-column="23" />
               <folding>
                 <element signature="e#873#878#0" expanded="true" />
               </folding>
@@ -78,8 +58,8 @@
       <file leaf-file-name="configuration.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/configuration.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="21" lean-forward="false" selection-start-line="0" selection-start-column="21" selection-end-line="0" selection-end-column="21" />
+            <state relative-caret-position="220">
+              <caret line="24" column="8" lean-forward="true" selection-start-line="24" selection-start-column="8" selection-end-line="24" selection-end-column="31" />
               <folding>
                 <element signature="e#23#38#0" expanded="true" />
               </folding>
@@ -117,11 +97,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="sitefile.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="sitefile.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/sitefile.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="194">
-              <caret line="371" column="56" lean-forward="false" selection-start-line="371" selection-start-column="56" selection-end-line="371" selection-end-column="56" />
+            <state relative-caret-position="245">
+              <caret line="303" column="18" lean-forward="false" selection-start-line="303" selection-start-column="18" selection-end-line="303" selection-end-column="18" />
               <folding>
                 <element signature="e#23#60#0" expanded="true" />
               </folding>
@@ -150,8 +130,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>proxy</find>
-      <find>start</find>
       <find>update</find>
       <find>container</find>
       <find>format</find>
@@ -178,8 +156,10 @@
       <find>Fix</find>
       <find>channeldelay</find>
       <find>type(</find>
-      <find>ITV HD</find>
       <find>program&quot;</find>
+      <find>displayname</find>
+      <find>ITV HD</find>
+      <find>rating</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -196,8 +176,8 @@
         <option value="$PROJECT_DIR$/configuration.py" />
         <option value="$PROJECT_DIR$/postprocess.py" />
         <option value="$PROJECT_DIR$/tvguide.co.uk.pyg" />
-        <option value="$PROJECT_DIR$/pygrab.py" />
         <option value="$PROJECT_DIR$/sitefile.py" />
+        <option value="$PROJECT_DIR$/pygrab.py" />
       </list>
     </option>
   </component>
@@ -207,9 +187,9 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-1928" />
-    <option name="y" value="-8" />
+  <component name="ProjectFrameBounds" extendedState="7">
+    <option name="x" value="-1832" />
+    <option name="y" value="-17" />
     <option name="width" value="1936" />
     <option name="height" value="1056" />
   </component>
@@ -456,7 +436,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1928" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-1928" y="-8" width="1936" height="1056" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32887402" sideWeight="0.49573562" order="6" side_tool="false" content_ui="tabs" />
@@ -787,6 +767,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/channel.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tvguide.co.uk.pyg">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="414">
+          <caret line="66" column="23" lean-forward="false" selection-start-line="66" selection-start-column="17" selection-end-line="66" selection-end-column="23" />
+          <folding>
+            <element signature="e#873#878#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/pygrab.config.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
@@ -797,20 +795,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/channel.py">
+    <entry file="file://$PROJECT_DIR$/sitefile.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/configuration.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="21" lean-forward="false" selection-start-line="0" selection-start-column="21" selection-end-line="0" selection-end-column="21" />
+        <state relative-caret-position="245">
+          <caret line="303" column="18" lean-forward="false" selection-start-line="303" selection-start-column="18" selection-end-line="303" selection-end-column="18" />
           <folding>
-            <element signature="e#23#38#0" expanded="true" />
+            <element signature="e#23#60#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -823,32 +813,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tvguide.co.uk.pyg">
+    <entry file="file://$PROJECT_DIR$/configuration.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" column="80" lean-forward="false" selection-start-line="18" selection-start-column="80" selection-end-line="18" selection-end-column="80" />
+        <state relative-caret-position="220">
+          <caret line="24" column="8" lean-forward="true" selection-start-line="24" selection-start-column="8" selection-end-line="24" selection-end-column="31" />
           <folding>
-            <element signature="e#873#878#0" expanded="true" />
+            <element signature="e#23#38#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/pygrab.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="493">
-          <caret line="29" column="0" lean-forward="true" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
+        <state relative-caret-position="559">
+          <caret line="65" column="0" lean-forward="true" selection-start-line="65" selection-start-column="0" selection-end-line="65" selection-end-column="0" />
           <folding>
             <element signature="e#23#34#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sitefile.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="194">
-          <caret line="371" column="56" lean-forward="false" selection-start-line="371" selection-start-column="56" selection-end-line="371" selection-end-column="56" />
-          <folding>
-            <element signature="e#23#60#0" expanded="true" />
           </folding>
         </state>
       </provider>

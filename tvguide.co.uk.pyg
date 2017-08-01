@@ -38,7 +38,7 @@
             <siteid order="2" />
             <string order="3">.png</string>
         </icon>
-        <displayname xpath="(//table[@cellpadding='0']/tr/td/table/tr/td/span[@class='programmeheading'])[1]/text()" />
+        <display-name xpath="(//table[@cellpadding='0']/tr/td/table/tr/td/span[@class='programmeheading'])[1]/text()" />
     </xmltv>
     <program>
         <detailurl xpath=".//a[@title='Click to rate and review']/@href" />
