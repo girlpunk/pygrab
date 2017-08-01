@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <settings>
-    <filename>/root/WebGrab+PlusV1.1.1LINUX/guide.xml</filename>
+    <filename>guide.xml</filename>
     <mode>m</mode>
     <postprocess run="y" grab="y">MDB</postprocess>
     <postprocess run="y" grab="y">REX</postprocess>
