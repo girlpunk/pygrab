@@ -265,7 +265,13 @@ class Site(object):
     def _extract_star_rating(program_definition, channel, show, show_xml):
         raw_rating = Site._extract_string(program_definition.find("star-rating"), channel=channel, page=show)
         if raw_rating and not Site._extract_string(program_definition.find("star-rating").find("unrated"), channel=channel, page=show).match().single():
-            etree.SubElement(show_xml, "star-rating").text = raw_rating.single() + "/" + program_definition.find("star-rating").attrib["max"]
+            etree.SubElement(etree.SubElement(show_xml, "star-rating"), "value").text = raw_rating.single() + "/" + program_definition.find("star-rating").attrib["max"]
+
+    @staticmethod
+    def _extract_rating(program_definition, channel, show, show_xml):
+        raw_rating = Site._extract_string(program_definition.find("rating"), channel=channel, page=show)
+        if raw_rating:
+            etree.SubElement(etree.SubElement(show_xml, "rating"), "value").text = raw_rating.single()
 
     @staticmethod
     def _extract_icon(program_definition, channel, show, show_xml):
@@ -315,6 +321,9 @@ class Site(object):
 
         if "star-rating" in program_tags:
             self._extract_star_rating(program_definition, channel, show, show_xml)
+
+        if "rating" in program_tags:
+            self._extract_rating(program_definition, channel, show, show_xml)
 
         if "icon" in program_tags:
             self._extract_icon(program_definition, channel, show, show_xml)
