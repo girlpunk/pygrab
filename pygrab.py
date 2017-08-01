@@ -41,6 +41,10 @@ ELEMENT_ORDER_WEIGHTS = {
     "rating": 22,
     "star-rating": 23,
     "review": 24,
+
+    # Other sub-elements
+    "display-name": 10,  # Needs to be before icon for channel entries
+    "value": 25
 }
 
 
