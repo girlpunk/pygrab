@@ -63,9 +63,7 @@
             <icon xpath="//body/div[@id='site-container']/div/div[@id='divCentre']/div[2]/div[@id='headerImage']/@style" regex="(?&lt;=background-image:url\()https?:\/\/.*(?=\);)" />
             <stop xpath="(//body/div[@id='site-container']/div/div[@id='divLHS']/div)[2]/div/text()[3]" regex="(?&lt;=-)\d*:\d*\wm" format="%I:%M%p"/>
             <category xpath="(//body/div[@id='site-container']/div/div[@id='divLHS']/div)[1]/text()[2]" regex="(?&lt;=Category: ).*"/>
-            <xmltv>
-                <rating xpath="(//body/div[@id='site-container']/div/div[@id='divLHS']/div)[2]/span[1]/text()" regex="(?&lt;=Certificate : ).*"/>
-            </xmltv>
+            <rating xpath="(//body/div[@id='site-container']/div/div[@id='divLHS']/div)[2]/span[1]/text()" regex="(?&lt;=Certificate : ).*"/>
         </detail>
     </program>
 </site>
