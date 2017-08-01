@@ -271,7 +271,7 @@ class Site(object):
     def _extract_icon(program_definition, channel, show, show_xml):
         icon_url = Site._extract_string(program_definition.find("icon"), channel=channel, page=show).single()
         if icon_url:
-            etree.SubElement(etree.SubElement(show_xml, "icon"), "url").text = icon_url
+            etree.SubElement(show_xml, "icon").attrib['src'] = icon_url
 
     @staticmethod
     def _extract_category(program_definition, channel, show, show_xml):
