@@ -404,7 +404,7 @@ class Site(object):
 
                 self._extract_details(detail_page, show_xml, channel, self.site_file.find("program").find("detail"))
 
-            show_xml.attrib['start'] = pytz.utc.localize(datetime.datetime.combine(day.date(), self.start.time())).astimezone(self.timezone).strftime("%Y%m%d%I%M%S %z")
-            show_xml.attrib['stop'] = pytz.utc.localize(datetime.datetime.combine(day.date(), self.stop .time())).astimezone(self.timezone).strftime("%Y%m%d%I%M%S %z")
+            show_xml.attrib['start'] = self.timezone.localize(datetime.datetime.combine(day.date(), self.start.time())).strftime("%Y%m%d%I%M%S %z")
+            show_xml.attrib['stop']  = self.timezone.localize(datetime.datetime.combine(day.date(), self.stop .time())).strftime("%Y%m%d%I%M%S %z")
 
             time.sleep(self.show_delay)
