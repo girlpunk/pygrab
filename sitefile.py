@@ -373,6 +373,8 @@ class Site(object):
             channel_item = etree.SubElement(channel_xml, item.tag)
             channel_item.text = self._extract_string(item, channel, page=page).single()
 
+        self._extract_icon(self.site_file, show=page, channel=None, show_xml=channel_xml)
+
         shows = self._extract_element(self.site_file.find("showsplit"), page, single=False)
         for show in shows:
             self._parse_show(data, channel, show, day)

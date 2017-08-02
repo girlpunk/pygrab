@@ -33,13 +33,13 @@
         <container xpath="//table[@bgcolor='black']" />
     </showsplit>
     <xmltv>
-        <icon>
-            <string order="1">http://my.tvguide.co.uk/channel_logos/</string>
-            <siteid order="2" />
-            <string order="3">.png</string>
-        </icon>
         <display-name xpath="(//table[@cellpadding='0']/tr/td/table/tr/td/span[@class='programmeheading'])[1]/text()" />
     </xmltv>
+    <icon>
+        <string order="1">http://my.tvguide.co.uk/channel_logos/</string>
+        <siteid order="2" />
+        <string order="3">.png</string>
+    </icon>
     <program>
         <detailurl xpath=".//a[@title='Click to rate and review']/@href" />
         <start xpath="tr/td/span[@class='season']/text()" format="%I:%M%p " />
