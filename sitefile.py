@@ -265,7 +265,11 @@ class Site(object):
     def _extract_star_rating(program_definition, channel, show, show_xml):
         raw_rating = Site._extract_string(program_definition.find("star-rating"), channel=channel, page=show)
         if raw_rating and not Site._extract_string(program_definition.find("star-rating").find("unrated"), channel=channel, page=show).match().single():
-            etree.SubElement(etree.SubElement(show_xml, "star-rating"), "value").text = raw_rating.single() + "/" + program_definition.find("star-rating").attrib["max"]
+            try:
+                rounded_rating = str(round(float(raw_rating.single()), 0))
+            except (TypeError, ValueError):
+                rounded_rating = raw_rating.single()
+            etree.SubElement(etree.SubElement(show_xml, "star-rating"), "value").text = rounded_rating + "/" + program_definition.find("star-rating").attrib["max"]
 
     @staticmethod
     def _extract_rating(program_definition, channel, show, show_xml):
@@ -405,6 +409,6 @@ class Site(object):
                 self._extract_details(detail_page, show_xml, channel, self.site_file.find("program").find("detail"))
 
             show_xml.attrib['start'] = self.timezone.localize(datetime.datetime.combine(day.date(), self.start.time())).strftime("%Y%m%d%H%M%S %z")
-            show_xml.attrib['stop']  = self.timezone.localize(datetime.datetime.combine(day.date(), self.stop .time())).strftime("%Y%m%d%H%M%S %z")
+            show_xml.attrib['stop'] = self.timezone.localize(datetime.datetime.combine(day.date(), self.stop .time())).strftime("%Y%m%d%H%M%S %z")
 
             time.sleep(self.show_delay)
