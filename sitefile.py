@@ -269,7 +269,7 @@ class Site(object):
                 rounded_rating = str(round(float(raw_rating.single()), 0))
             except (TypeError, ValueError):
                 rounded_rating = raw_rating.single()
-            etree.SubElement(etree.SubElement(show_xml, "star-rating"), "value").text = rounded_rating + "/" + program_definition.find("star-rating").attrib["max"]
+            etree.SubElement(etree.SubElement(show_xml, "star-rating"), "value").text = rounded_rating + " / " + program_definition.find("star-rating").attrib["max"]
 
     @staticmethod
     def _extract_rating(program_definition, channel, show, show_xml):
