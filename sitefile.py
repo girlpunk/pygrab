@@ -314,6 +314,12 @@ class Site(object):
             if val:
                 etree.SubElement(show_xml, tag.tag).text = val.single()
 
+    @staticmethod
+    def _extract_previously_shown(program_definition, channel, show, show_xml):
+        previously_shown = Site._extract_string(program_definition.find("previously-shown"), channel=channel, page=show).match().single()
+        if previously_shown:
+            etree.SubElement(show_xml, "previously-shown")
+
     def _extract_details(self, show, show_xml, channel, program_definition):
         program_tags = Site._get_child_tags(program_definition)
         if "start" in program_tags:
@@ -340,6 +346,9 @@ class Site(object):
 
         if "subtitles" in program_tags:
             self._extract_subtitles(program_definition, channel, show, show_xml)
+
+        if "previously-shown" in program_tags:
+            self._extract_previously_shown(program_definition, channel, show, show_xml)
 
         if "xmltv" in program_tags:
             self._extract_xmltv(program_definition, channel, show, show_xml)

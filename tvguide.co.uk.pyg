@@ -43,27 +43,28 @@
     <program>
         <detailurl xpath=".//a[@title='Click to rate and review']/@href" />
         <start xpath="tr/td/span[@class='season']/text()" format="%I:%M%p " />
-        <star-rating xpath="tr/td/table/tr/td/span[@class='programmeheading']/text()" max="10">
+        <star-rating xpath="tr/td/table/tr/td/span[@class='programmeheading']/text()" max="10" >
             <unrated xpath="tr/td/table/tr/td/span[@class='programmetext']/text()" match="Not Yet Rated" />
         </star-rating>
-        <category xpath="tr/td/span[@class='programmetext']/text()"/>
-        <episode-num xpath="concat((tr/td/a/b/span[@class='season'])[1], (tr/td/a/b/span[@class='season'])[2])">
+        <category xpath="tr/td/span[@class='programmetext']/text()" />
+        <episode-num xpath="concat((tr/td/a/b/span[@class='season'])[1], (tr/td/a/b/span[@class='season'])[2])" >
             <system><string order="1">onscreen</string></system>
         </episode-num>
-        <subtitles xpath="tr/td/span[@class='tvchannel']/text()" match="(Subtitles)">
+        <subtitles xpath="tr/td/span[@class='tvchannel']/text()" match="(Subtitles)" >
                 <type><string order="1">teletext</string></type>
             </subtitles>
         <xmltv>
             <title xpath="tr/td/a/span/text()" />
-            <sub-title xpath="tr/td/a/span[@class='tvchannel']/text()"/>
-            <desc xpath="tr/td/a/span[@class='programmetext']/text()"/>
-            <url xpath="tr/td/a/@href"/>
+            <sub-title xpath="tr/td/a/span[@class='tvchannel']/text()" />
+            <desc xpath="tr/td/a/span[@class='programmetext']/text()" />
+            <url xpath="tr/td/a/@href" />
         </xmltv>
         <detail>
             <icon xpath="//body/div[@id='site-container']/div/div[@id='divCentre']/div[2]/div[@id='headerImage']/@style" regex="(?&lt;=background-image:url\()https?:\/\/.*(?=\);)" />
-            <stop xpath="(//body/div[@id='site-container']/div/div[@id='divLHS']/div)[2]/div/text()[3]" regex="(?&lt;=-)\d*:\d*\wm" format="%I:%M%p"/>
-            <category xpath="(//body/div[@id='site-container']/div/div[@id='divLHS']/div)[1]/text()[2]" regex="(?&lt;=Category: ).*"/>
-            <rating xpath="(//body/div[@id='site-container']/div/div[@id='divLHS']/div)[2]/span[1]/text()" regex="(?&lt;=Certificate : ).*"/>
+            <stop xpath="(//body/div[@id='site-container']/div/div[@id='divLHS']/div)[2]/div/text()[3]" regex="(?&lt;=-)\d*:\d*\wm" format="%I:%M%p" />
+            <category xpath="(//body/div[@id='site-container']/div/div[@id='divLHS']/div)[1]/text()[2]" regex="(?&lt;=Category: ).*" />
+            <rating xpath="(//body/div[@id='site-container']/div/div[@id='divLHS']/div)[2]/span[1]/text()" regex="(?&lt;=Certificate : ).*" />
+            <previously-shown xpath="//body/div[@id='site-container']/div/div[@id='divLHS']/div/span" match="Repeat" />
         </detail>
     </program>
 </site>
