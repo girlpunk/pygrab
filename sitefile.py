@@ -33,12 +33,12 @@ class Site(object):
         self.timezone = None
         self.session = None
 
-        if os.path.isfile(name+".pyg"):
+        if os.path.isfile(name + ".pyg"):
             self.pygrab_setup()
-        elif os.path.isfile(name+".ini"):
+        elif os.path.isfile(name + ".ini"):
             self.webgrab_setup()
         else:
-            logging.error("Unknown site "+name)
+            logging.error("Unknown site " + name)
 
     def pygrab_setup(self):
         self.mode = MODE_PYGRAB
@@ -58,7 +58,7 @@ class Site(object):
         if "show-delay" in retry_data.attrib:
             self.show_delay = int(retry_data.attrib['show-delay'])
 
-        logging.debug("Loading "+self.name+".pyg")
+        logging.debug("Loading " + self.name + ".pyg")
 
     def webgrab_setup(self):
         self.mode = MODE_WEBGRAB
@@ -88,11 +88,11 @@ class Site(object):
         output = Attribute("", element)
         for item in items:
             if item.tag == "string":
-                output.update(output.single(blank=True)+item.text.strip())
+                output.update(output.single(blank=True) + item.text.strip())
             elif item.tag == "siteid":
-                output.update(output.single(blank=True)+channel.site_id)
+                output.update(output.single(blank=True) + channel.site_id)
             elif item.tag == "date":
-                output.update(output.single(blank=True)+datetime.datetime.strftime(date, item.text.strip()))
+                output.update(output.single(blank=True) + datetime.datetime.strftime(date, item.text.strip()))
         return output
 
     @staticmethod
@@ -274,7 +274,7 @@ class Site(object):
             except requests.exceptions.RequestException as e:
                 retry_limit -= 1
                 print("r", end='')
-                time.sleep(((self.retry-retry_limit)+1)*self.timeout)
+                time.sleep(((self.retry - retry_limit) + 1) * self.timeout)
         else:
             # noinspection PyUnboundLocalVariable
             raise e
@@ -292,31 +292,31 @@ class Site(object):
             self._parse_show(data, channel, show, day)
 
     def _parse_show(self, data, channel, show, day):
-            show_xml = etree.SubElement(data, 'programme')
-            show_xml.attrib["channel"] = channel.xmltvid
+        show_xml = etree.SubElement(data, 'programme')
+        show_xml.attrib["channel"] = channel.xmltvid
 
-            self._extract_details(show, show_xml, channel, self.site_file.find("program"))
-            detail_page_url = self._extract_string(self.site_file.find("program").find("detailurl"), channel, page=show).single()
-            if detail_page_url:
-                retry_limit = int(self.retry)
-                while retry_limit > 0:
-                    try:
-                        detail_page_request = self.session.get(detail_page_url, timeout=self.timeout)
-                        detail_page_request.raise_for_status()
-                        break
-                    except requests.exceptions.RequestException as e:
-                        retry_limit -= 1
-                        print("r", end='')
-                        time.sleep(((self.retry-retry_limit)+1)*self.timeout)
-                else:
-                    # noinspection PyUnboundLocalVariable
-                    raise e
-                detail_page = etree.fromstring(detail_page_request.content, parser=etree.HTMLParser())
-                print(".", end='')
+        self._extract_details(show, show_xml, channel, self.site_file.find("program"))
+        detail_page_url = self._extract_string(self.site_file.find("program").find("detailurl"), channel, page=show).single()
+        if detail_page_url:
+            retry_limit = int(self.retry)
+            while retry_limit > 0:
+                try:
+                    detail_page_request = self.session.get(detail_page_url, timeout=self.timeout)
+                    detail_page_request.raise_for_status()
+                    break
+                except requests.exceptions.RequestException as e:
+                    retry_limit -= 1
+                    print("r", end='')
+                    time.sleep(((self.retry - retry_limit) + 1) * self.timeout)
+            else:
+                # noinspection PyUnboundLocalVariable
+                raise e
+            detail_page = etree.fromstring(detail_page_request.content, parser=etree.HTMLParser())
+            print(".", end='')
 
-                self._extract_details(detail_page, show_xml, channel, self.site_file.find("program").find("detail"))
+            self._extract_details(detail_page, show_xml, channel, self.site_file.find("program").find("detail"))
 
-            show_xml.attrib['start'] = self.timezone.localize(datetime.datetime.combine(day.date(), self.start.time())).strftime("%Y%m%d%H%M%S %z")
-            show_xml.attrib['stop'] = self.timezone.localize(datetime.datetime.combine(day.date(), self.stop .time())).strftime("%Y%m%d%H%M%S %z")
+        show_xml.attrib['start'] = self.timezone.localize(datetime.datetime.combine(day.date(), self.start.time())).strftime("%Y%m%d%H%M%S %z")
+        show_xml.attrib['stop'] = self.timezone.localize(datetime.datetime.combine(day.date(), self.stop.time())).strftime("%Y%m%d%H%M%S %z")
 
-            time.sleep(self.show_delay)
+        time.sleep(self.show_delay)
